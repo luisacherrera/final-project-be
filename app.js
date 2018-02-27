@@ -8,13 +8,14 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const index = require('./routes/index');
+const auth = require('./routes/auth');
 
 const app = express();
 
 // database setup
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/sample-project', {
+mongoose.connect('mongodb://localhost/final-project', {
   keepAlive: true,
   reconnectTries: Number.MAX_VALUE
 });
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', index);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
