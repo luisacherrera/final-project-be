@@ -48,6 +48,7 @@ router.post('/signup', (req, res, next) => {
 
   const username = req.body.username;
   const password = req.body.password;
+  const profilepic = 'https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png';
 
   if (!username || !password) {
     return res.status(422).json({error: 'validation'});
@@ -64,7 +65,8 @@ router.post('/signup', (req, res, next) => {
 
       const newUser = User({
         username,
-        password: hashPass
+        password: hashPass,
+        profilepic
       });
 
       return newUser.save()
