@@ -21,7 +21,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.post('/:id', (req, res, next) => {
+router.post('/edit/:id', (req, res, next) => {
   const userId = req.params.id;
   User.findById(userId)
     .then((result) => {
