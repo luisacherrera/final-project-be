@@ -21,4 +21,28 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
+router.post('/:id', (req, res, next) => {
+  const userId = req.params.id;
+  User.findById(userId)
+    .then((result) => {
+      let updateDescription = '';
+      if (req.body.description === '') {
+        updateDescription = result.description;
+      } else {
+        updateDescription = req.body.description;
+      }
+
+      const updateUser = {
+        name: req.body.name,
+        interests: req.body.interests,
+        description: updateDescription
+      };
+
+      User.findByIdAndUpdate(userId, updateUser)
+        .then((user) => {
+          return res.json(user);
+        }).catch(next);
+    });
+});
+
 module.exports = router;
