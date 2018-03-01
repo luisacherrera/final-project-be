@@ -46,6 +46,7 @@ router.post('/signup', (req, res, next) => {
     return res.status(401).json({error: 'unauthorized'});
   }
 
+  const name = req.body.name;
   const username = req.body.username;
   const password = req.body.password;
   const interests = req.body.interests;
@@ -64,6 +65,7 @@ router.post('/signup', (req, res, next) => {
       const hashPass = bcrypt.hashSync(password, salt);
 
       const newUser = User({
+        name,
         username,
         password: hashPass,
         interests
