@@ -21,16 +21,4 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-// router.post('/search', (req, res, next) => {
-//   const findInterest = req.body.findInterest;
-//   User.find({interests: { '$regex': findInterest, '$options': 'i' }})
-//     .then(match => {
-//       if (match.length > 0) {
-//         return res.json(match);
-//       } else {
-//         return res.status(404).json(new Error('404'));
-//       }
-//     });
-// });
-
 module.exports = router;
