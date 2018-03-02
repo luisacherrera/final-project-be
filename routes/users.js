@@ -25,21 +25,18 @@ router.post('/edit/:id', (req, res, next) => {
   const userId = req.params.id;
   User.findById(userId)
     .then((result) => {
-      let updateDescription = '';
-      if (req.body.description === '') {
-        updateDescription = result.description;
-      } else {
-        updateDescription = req.body.description;
+      let newDescription = '';
+      if (req.body.description !== '') {
+        newDescription = req.body.description;
       }
 
-      const updateUser = {
-        name: req.body.name,
-        interests: req.body.interests,
-        description: updateDescription
+      const data = {
+        description: newDescription
       };
 
-      User.findByIdAndUpdate(userId, updateUser)
+      result.update(data)
         .then((user) => {
+          console.log(user);
           return res.json(user);
         }).catch(next);
     });
