@@ -26,12 +26,23 @@ router.post('/edit/:id', (req, res, next) => {
   User.findById(userId)
     .then((result) => {
       let newDescription = '';
-      if (req.body.description !== '') {
+      if (req.body.description === undefined) {
+        newDescription = result.description;
+      } else {
         newDescription = req.body.description;
       }
 
+      let newInterests = '';
+      if (req.body.interests === undefined) {
+        newInterests = result.interests;
+      } else {
+        result.interests.push(req.body.interests);
+        newInterests = result.interests;
+      }
+
       const data = {
-        description: newDescription
+        description: newDescription,
+        interests: newInterests
       };
 
       result.update(data)

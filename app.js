@@ -16,6 +16,12 @@ const users = require('./routes/users');
 
 const app = express();
 
+console.log(process.env.CLIENT_URL);
+app.use(cors({
+  credentials: true,
+  origin: [process.env.CLIENT_URL]
+}));
+
 // database setup
 
 mongoose.Promise = Promise;
@@ -38,11 +44,6 @@ app.use(session({
 }));
 
 // middlewares
-
-app.use(cors({
-  credentials: true,
-  origin: [process.env.CLIENT_URL]
-}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
