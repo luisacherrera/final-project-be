@@ -13,6 +13,7 @@ router.get('/all/:id', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   User.findById(req.params.id)
+    .populate('messages.owner')
     .exec((err, user) => {
       if (err) { return res.status(500).json(err); }
       if (!user) { return res.status(404).json(new Error('404')); }
