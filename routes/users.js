@@ -22,38 +22,6 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.post('/edit/:id', (req, res, next) => {
-  const userId = req.params.id;
-  User.findById(userId)
-    .then((result) => {
-      let newDescription = '';
-      if (req.body.description === undefined) {
-        newDescription = result.description;
-      } else {
-        newDescription = req.body.description;
-      }
-
-      let newInterests = '';
-      if (req.body.interests === undefined) {
-        newInterests = result.interests;
-      } else {
-        result.interests.push(req.body.interests);
-        newInterests = result.interests;
-      }
-
-      const data = {
-        description: newDescription,
-        interests: newInterests
-      };
-
-      result.update(data)
-        .then((user) => {
-          console.log(user);
-          return res.json(user);
-        }).catch(next);
-    });
-});
-
 router.post('/message/:id', (req, res, next) => {
   const userId = req.params.id;
 

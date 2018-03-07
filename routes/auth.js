@@ -85,4 +85,33 @@ router.post('/logout', (req, res) => {
   return res.status(204).send();
 });
 
+router.post('/edit/:id', (req, res, next) => {
+  const userId = req.params.id;
+  User.findById(userId)
+    .then((result) => {
+      if (req.body.description !== undefined) {
+        result.description = req.body.description;
+      }
+
+      let newInterests = '';
+      if (req.body.interests === undefined) {
+        newInterests = result.interests;
+      } else {
+        result.interests.push(req.body.interests);
+        newInterests = result.interests;
+      }
+
+      const data = {
+        description: result.description,
+        interests: newInterests
+      };
+
+      result.update(data)
+        .then(() => {
+          req.session.currentUser = result;
+          return res.json(result);
+        }).catch(next);
+    });
+});
+
 module.exports = router;
